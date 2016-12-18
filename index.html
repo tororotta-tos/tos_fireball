@@ -1,0 +1,149 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ファイアボールダメージ計算機</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.min.js"></script>
+<script src="damage.js"/></script>
+<script>
+var data_enhance = {
+	labels : [],
+	datasets: [{
+		label: '1HITのダメージ（特性を変動）',
+		data: [],
+		borderWidth: 1
+	}]
+}
+
+var data_matk = {
+	labels : [],
+	datasets: [{
+		label: '1HITのダメージ（魔法攻撃力を変動）',
+		data: [],
+		borderWidth: 1
+	}]
+}
+
+function start_calc()
+{
+	var damage = calc(1, "");
+	var hitnum = parseInt(skilllv.value);
+	onehit.value = damage;
+	fullhit.value = damage*hitnum;
+
+	// 特性を変動させたグラフ
+	var damages = calc(1, "enhance");
+	data_enhance["labels"] = [];
+	data_enhance["datasets"][0]["data"] = [];
+	for(i = 0; i <= 100; i++)
+	{
+		data_enhance["labels"].push(i);
+		data_enhance["datasets"][0]["data"].push(damages[i]);
+	}
+	paint_chart_enhance("chart_enhance", data_enhance);
+
+	// MATKを変動させたグラフ
+	var matk = parseInt(document.getElementById("matk").value);
+	var damages = calc(1, "matk");
+	data_matk["labels"] = [];
+	data_matk["datasets"][0]["data"] = [];
+	for(i = -20; i <= 20; i++)
+	{
+		data_matk["labels"].push(i*50 + matk);
+		data_matk["datasets"][0]["data"].push(damages[i+20]);
+	}
+	paint_chart_enhance("chart_matk", data_matk);
+}
+
+function paint_chart_enhance(id, dataset)
+{
+	var ctx = document.getElementById(id);
+	var myChart = new Chart(ctx, {
+	type: 'line',
+	data: dataset,
+	options: {
+		responsive:false,
+		scales: {
+			yAxes: [{
+				ticks: {
+					beginAtZero:true
+				}
+			}]
+		}
+	}
+});
+}
+</script>
+<link rel="stylesheet" href="default.css"></link>
+</head>
+<body>
+<h1>ファイアボールダメージ計算機（無保証）</h1>
+<table>
+<tr><td colspan="2">
+	ファイアボールのダメージを計算しよう<br>
+	使い方：<br>
+	　ピンク色の項目を埋めて、「計算する」をクリックすると<br>
+	　1HITあたりのダメージ、全ヒット時の総ダメージ、<br>
+	　特性を変動させたときのダメージ、魔法攻撃力を変動させたときのダメージがわかる<br>
+</td></tr>
+<tr>
+<td>
+<table style="float:left;" class="formtable">
+	<tr><th colspan=2>プレイヤー情報</th></tr>
+	<tr><td>スキルLv</td><td><input type="text" id="skilllv" value="15" /></td></tr>
+	<tr><td>魔法攻撃力</td><td><input type="text" id="matk" value="1000"/></td></tr>
+	<tr><td>魔法増幅</td><td><input type="text" id="amp" value="0"/></td></tr>
+	<tr><td>属性攻撃力</td>
+	<td>
+		火：<input type="text" id="atk_elem_fire" value="0" size="5"/>
+		氷：<input type="text" id="atk_elem_ice" value="0" size="5"/><br>
+		雷：<input type="text" id="atk_elem_lightning" value="0" size="5"/>
+		毒：<input type="text" id="atk_elem_poison" value="0" size="5"/><br>
+		地：<input type="text" id="atk_elem_earth" value="0" size="5"/>
+		聖：<input type="text" id="atk_elem_holy" value="0" size="5"/><br>
+		闇：<input type="text" id="atk_elem_dark" value="0" size="5"/>
+	</td></tr>
+	<tr><td>種族攻撃力</td><td><input type="text" id="atk_type" value="0"/></td></tr>
+	<tr>
+		<td>特殊</td>
+		<td>
+			<input type="checkbox" id="useagni" checked>アグニネックレス装備<br>
+			<input type="checkbox" id="usequickcast">クイックキャスト使用<br>
+		</td>
+	</tr>
+	<tr><td>特性</td><td><input type="text" id="enhance" value="0"/></td></tr>
+	<tr><td>ボーナス</td><td><input type="text" id="bonus" value="0"/></td></tr>
+
+	<tr><th colspan=2>エネミー情報</th></tr>
+	<tr><td>魔法防御力</td><td><input type="text" id="mdef" value="0"/></td></tr>
+	<tr>
+		<td>属性</td>
+		<td>
+			<input type="radio" name="enemy_elem" value="fire">火
+			<input type="radio" name="enemy_elem" value="ice">氷
+			<input type="radio" name="enemy_elem" value="lightning">雷
+			<input type="radio" name="enemy_elem" value="poison">毒<br>
+			<input type="radio" name="enemy_elem" value="earth">地
+			<input type="radio" name="enemy_elem" value="holy">聖
+			<input type="radio" name="enemy_elem" value="dark" checked>闇
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="button" onclick="start_calc()" value="計算する" />
+		</td>
+	<tr>
+	<tr><td>1HITダメージ</td><td><input type="text" id="onehit" class="result" /></td></tr>
+	<tr><td>フルHITダメージ</td><td><input type="text" id="fullhit" class="result" /></td></tr>
+</table>
+</td>
+<td>
+<canvas id="chart_enhance" width="700" height="300"></canvas>
+<canvas id="chart_matk" width="700" height="300"></canvas>
+</td>
+</tr>
+</table>
+※Lv差補正は未実装<br>
+計算式：<a href="https://github.com/vyne1/tos-mechanics">https://github.com/vyne1/tos-mechanics</a><br>
+グラフ描画ライブラリ：<a href="http://www.chartjs.org/">http://www.chartjs.org/</a><br>
+</body>
+</html>

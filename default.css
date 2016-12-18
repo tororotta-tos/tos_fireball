@@ -1,0 +1,71 @@
+body {
+	margin-left:30px;
+	font-family:Avenir , "Open Sans" , "Helvetica Neue" , Helvetica , Arial , Verdana , Roboto , "游ゴシック" , "Yu Gothic" , "游ゴシック体" , "YuGothic" , "ヒラギノ角ゴ Pro W3" , "Hiragino Kaku Gothic Pro" , "Meiryo UI" , "メイリオ" , Meiryo , "ＭＳ Ｐゴシック" , "MS PGothic" , sans-serif;
+}
+
+h1 {
+	color:#444444;
+	border-bottom: 1px solid black;
+}
+
+input[type="text"] {
+	background-color:#ffe6f1;
+	border: 1px solid black;
+	border-radius: 5px;
+	text-align: center;
+}
+
+input[type="text"]:hover {
+	background-color:lightpink;
+}
+
+input.result {
+	color:red;
+	border-radius: 0px;
+	background-color: white;
+	text-align: right;
+}
+
+input.result:hover {
+	background-color: white;
+}
+
+table.formtable {
+	border-collapse: collapse;
+	width:350px;
+}
+
+th {
+	color:white;
+	background:black;
+	border-left: 15px solid lightslategray;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+td {
+	padding-top:4px;
+	padding-bottom:4px;
+	border-bottom: 1px solid black;
+}
+
+img.gabija{
+	width:200px;
+}
+
+input[type="button"] {
+	height:50px;
+	border:none;
+	font-size: 20px;
+	font-weight: bold;
+	color:white;
+	border-radius: 5px;
+	padding-left:20px;
+	padding-right:20px;
+	background-color:dodgerblue;
+	cursor:pointer;
+}
+
+input[type="button"]:hover {
+	background-color: #0e70ff;
+}
