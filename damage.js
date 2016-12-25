@@ -11,6 +11,7 @@ function calc(hitnum, variable)
 	var atk_elem_earth = parseInt(document.getElementById("atk_elem_earth").value);
 	var atk_elem_holy = parseInt(document.getElementById("atk_elem_holy").value);
 	var atk_elem_dark = parseInt(document.getElementById("atk_elem_dark").value);
+	var atk_elem_psy = parseInt(document.getElementById("atk_elem_psy").value);
 	var atk_type = parseInt(document.getElementById("atk_type").value);
 	var useagni = document.getElementById("useagni").checked;
 	var usequickcast = document.getElementById("usequickcast").checked;
@@ -30,7 +31,7 @@ function calc(hitnum, variable)
 			break;
 		}
 	}
-	var atk_elem = calc_attak_elem(enemy_elem, atk_elem_fire, atk_elem_ice, atk_elem_lightning, atk_elem_poison, atk_elem_earth, atk_elem_holy, atk_elem_dark);
+	var atk_elem = calc_attak_elem(enemy_elem, atk_elem_fire, atk_elem_ice, atk_elem_lightning, atk_elem_poison, atk_elem_earth, atk_elem_holy, atk_elem_dark, atk_elem_psy);
 	var lv_penalty = calc_LevelPenalty(0, 0);
 	var T2 = calc_T2(enemy_elem, useagni, usequickcast);
 	if(variable == "")
@@ -71,15 +72,15 @@ function test()
 }
 
 // 属性攻撃力計算
-function calc_attak_elem(enemyelem, fire, ice, lightning, poision, earth, holy, dark)
+function calc_attak_elem(enemyelem, fire, ice, lightning, poision, earth, holy, dark, psy)
 {
-	var firelist = [0.5, 1.5, 1, 1, 1, 1, 1];
-	var icelist = [1.5, 0.5, 1, 1, 1, 1, 1];
-	var lightninglist = [1, 2, 0.5, 1, 0.5, 1, 1];
-	var poisonlist = [1, 1, 1, 0.5, 1.5, 1, 1];
-	var earthlist = [1, 1, 1.5, 0.5, 1, 1, 1];
-	var holylist = [1, 1, 1, 1, 1, 1, 2];
-	var darklist = [1, 1, 1, 1, 1, 2, 1];
+	var firelist = [0.5, 1.5, 1, 1, 1, 1, 1, 1];
+	var icelist = [1.5, 0.5, 1, 1, 1, 1, 1, 1];
+	var lightninglist = [1, 2, 0.5, 1, 0.5, 1, 1, 1];
+	var poisonlist = [1, 1, 1, 0.5, 1.5, 1, 1, 1];
+	var earthlist = [1, 1, 1.5, 0.5, 1, 1, 1, 1];
+	var holylist = [1, 1, 1, 1, 1, 1, 2, 1.25];
+	var darklist = [1, 1, 1, 1, 1, 2, 1, 1.25];
 	var aisyo = {
 		"fire":firelist, 
 		"ice":icelist, 
@@ -90,7 +91,7 @@ function calc_attak_elem(enemyelem, fire, ice, lightning, poision, earth, holy, 
 		"dark":darklist, 
 	};
 
-	var elements = [fire, ice, lightning, poision, earth, holy, dark];
+	var elements = [fire, ice, lightning, poision, earth, holy, dark, psy];
 	attack_elem = 0;
 	for(i = 0; i < elements.length; i++)
 	{
