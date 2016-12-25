@@ -1,3 +1,25 @@
+function zerofill()
+{
+	ids = [
+		"matk", "amp", 
+		"atk_elem_fire", "atk_elem_ice", "atk_elem_lightning", "atk_elem_poison", 
+		"atk_elem_earth", "atk_elem_holy", "atk_elem_dark", "atk_elem_psy",
+		"atk_type", "enhance", "bonus", "mdef"
+	];
+	for(i = 0; i < ids.length; i++)
+	{
+		tbox = document.getElementById(ids[i]);
+		if(tbox.value == "")
+		{
+			tbox.value = "0";
+		}
+	}
+	if(document.getElementById("skilllv").value == "")
+	{
+		document.getElementById("skilllv").value = "1";
+	}
+}
+
 function calc(hitnum, variable)
 {
 	var skilllv = parseInt(document.getElementById("skilllv").value);
