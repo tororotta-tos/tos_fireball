@@ -1,7 +1,7 @@
 function zerofill()
 {
 	ids = [
-		"matk", "amp", 
+		"amp", 
 		"atk_elem_fire", "atk_elem_ice", "atk_elem_lightning", "atk_elem_poison", 
 		"atk_elem_earth", "atk_elem_holy", "atk_elem_dark", "atk_elem_psy",
 		"atk_type", "enhance", "bonus", "mdef"
@@ -18,12 +18,22 @@ function zerofill()
 	{
 		document.getElementById("skilllv").value = "1";
 	}
+	if(document.getElementById("matk_min").value == "" && document.getElementById("matk_max").value != "")
+	{
+		document.getElementById("matk_min").value = document.getElementById("matk_max").value;
+	}
+	if(document.getElementById("matk_min").value != "" && document.getElementById("matk_max").value == "")
+	{
+		document.getElementById("matk_max").value = document.getElementById("matk_min").value;
+	}
 }
 
 function calc(hitnum, variable)
 {
 	var skilllv = parseInt(document.getElementById("skilllv").value);
-	var matk = parseInt(document.getElementById("matk").value);
+	var matk_min = parseInt(document.getElementById("matk_min").value);
+	var matk_max = parseInt(document.getElementById("matk_max").value);
+	var matk = (matk_min + matk_max) / 2
 	var amp = parseInt(document.getElementById("amp").value);
 	amp = amp / 2;
 	var atk_elem_fire = parseInt(document.getElementById("atk_elem_fire").value);
