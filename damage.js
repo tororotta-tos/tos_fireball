@@ -113,10 +113,10 @@ function test()
 function calc_attak_elem(enemyelem, fire, ice, lightning, poision, earth, holy, dark, psy)
 {
 	var firelist = [0.5, 1.5, 1, 1, 1, 1, 1, 1];
-	var icelist = [1.5, 0.5, 1, 1, 1, 1, 1, 1];
-	var lightninglist = [1, 2, 0.5, 1, 0.5, 1, 1, 1];
-	var poisonlist = [1, 1, 1, 0.5, 1.5, 1, 1, 1];
-	var earthlist = [1, 1, 1.5, 0.5, 1, 1, 1, 1];
+	var icelist = [1.5, 0.5, 2, 1, 1, 1, 1, 1];
+	var lightninglist = [1, 1, 0.5, 1, 1.5, 1, 1, 1];
+	var poisonlist = [1, 1, 1, 0.5, 0.5, 1, 1, 1];
+	var earthlist = [1, 1, 0.5, 1.5, 1, 1, 1, 1];
 	var holylist = [1, 1, 1, 1, 1, 1, 2, 1.25];
 	var darklist = [1, 1, 1, 1, 1, 2, 1, 1.25];
 	var aisyo = {
