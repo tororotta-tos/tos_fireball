@@ -8,7 +8,7 @@
 var data_enhance = {
 	labels : [],
 	datasets: [{
-		label: '1HITのダメージ（特性を変動）',
+		label: '1HITの中央ダメージ（特性を変動）',
 		data: [],
 		borderWidth: 1
 	}]
@@ -17,7 +17,7 @@ var data_enhance = {
 var data_matk = {
 	labels : [],
 	datasets: [{
-		label: '1HITのダメージ（魔法攻撃力を変動）',
+		label: '1HITの中央ダメージ（魔法攻撃力を変動）',
 		data: [],
 		borderWidth: 1
 	}]
@@ -27,8 +27,12 @@ function start_calc()
 {
 	var damage = calc(1, "");
 	var hitnum = parseInt(skilllv.value);
-	onehit.value = damage;
-	fullhit.value = damage*hitnum;
+	onehit_min.value = damage[0];
+	onehit_mid.value = damage[1];
+	onehit_max.value = damage[2];
+	fullhit_min.value = damage[0] * hitnum;
+	fullhit_mid.value = damage[1] * hitnum;
+	fullhit_max.value = damage[2] * hitnum;
 
 	// 特性を変動させたグラフ
 	var damages = calc(1, "enhance");
@@ -42,7 +46,9 @@ function start_calc()
 	paint_chart_enhance("chart_enhance", data_enhance);
 
 	// MATKを変動させたグラフ
-	var matk = parseInt(document.getElementById("matk").value);
+	var matk_min = parseInt(document.getElementById("matk_min").value);
+	var matk_max = parseInt(document.getElementById("matk_max").value);
+	var matk = Math.floor((matk_min + matk_max) / 2)
 	var damages = calc(1, "matk");
 	data_matk["labels"] = [];
 	data_matk["datasets"][0]["data"] = [];
@@ -133,8 +139,22 @@ function paint_chart_enhance(id, dataset)
 			<input type="button" onclick="zerofill();start_calc()" value="計算する" />
 		</td>
 	<tr>
-	<tr><td>1HITダメージ</td><td><input type="text" id="onehit" class="result" /></td></tr>
-	<tr><td>フルHITダメージ</td><td><input type="text" id="fullhit" class="result" /></td></tr>
+	<tr>
+		<td>1HITダメージ</td>
+		<td>
+			最小：<input type="text" id="onehit_min" class="result" /><br>
+			中央：<input type="text" id="onehit_mid" class="result" /><br>
+			最大：<input type="text" id="onehit_max" class="result" /><br>
+		</td>
+	</tr>
+	<tr>
+		<td>フルHITダメージ</td>
+		<td>
+			最小：<input type="text" id="fullhit_min" class="result" /><br>
+			中央：<input type="text" id="fullhit_mid" class="result" /><br>
+			最大：<input type="text" id="fullhit_max" class="result" /><br>
+		</td>
+	</tr>
 </table>
 </td>
 <td>

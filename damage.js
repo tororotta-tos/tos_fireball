@@ -34,8 +34,9 @@ function calc(hitnum, variable)
 	var matk_min = parseInt(document.getElementById("matk_min").value);
 	var matk_max = parseInt(document.getElementById("matk_max").value);
 	var matk = (matk_min + matk_max) / 2
-	var amp = parseInt(document.getElementById("amp").value);
-	amp = amp / 2;
+	var amp_min = 0;
+	var amp_max = parseInt(document.getElementById("amp").value);
+	var amp = amp_max / 2;
 	var atk_elem_fire = parseInt(document.getElementById("atk_elem_fire").value);
 	var atk_elem_ice = parseInt(document.getElementById("atk_elem_ice").value);
 	var atk_elem_lightning = parseInt(document.getElementById("atk_elem_lightning").value);
@@ -68,8 +69,13 @@ function calc(hitnum, variable)
 	var T2 = calc_T2(enemy_elem, useagni, usequickcast);
 	if(variable == "")
 	{
-		var damage = calc_fb(matk, skilllv, amp, mdef, 0, lv_penalty, 0, atk_elem, atk_type, T2, enhance, bonus);
-		var totaldamage = hitnum * damage;
+		var damage_min = calc_fb(matk_min, skilllv, amp_min, mdef, 0, lv_penalty, 0, atk_elem, atk_type, T2, enhance, bonus);
+		var damage_mid = calc_fb(matk, skilllv, amp, mdef, 0, lv_penalty, 0, atk_elem, atk_type, T2, enhance, bonus);
+		var damage_max = calc_fb(matk_max, skilllv, amp_max, mdef, 0, lv_penalty, 0, atk_elem, atk_type, T2, enhance, bonus);
+		var totaldamage = new Array();
+		totaldamage[0] = hitnum * damage_min;
+		totaldamage[1] = hitnum * damage_mid;
+		totaldamage[2] = hitnum * damage_max;
 		return totaldamage;
 	}
 	else if(variable == "enhance")
